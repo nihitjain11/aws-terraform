@@ -1,3 +1,3 @@
-variable cidr_block {
-    default = 
+variable cidr {
+    type = string
 }

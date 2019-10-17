@@ -1,5 +1,5 @@
 module "vpc" {
-    source = "modules/vpc/"
+    source = "./modules/vpc/"
 
     name            = "myvpc"
     cidr            = "10.0.0.0/16"
@@ -11,11 +11,4 @@ module "vpc" {
     enable_nat_gateway = true
     single_nat_gateway = true
     one_nat_gateway_per_az = false
-
-    tags = {
-        Terraform = "true"
-        Environment = "dev"
-    }
-
-
 }
