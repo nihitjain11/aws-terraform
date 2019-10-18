@@ -8,6 +8,11 @@ variable "priv_cidr"{
     default = []
 }
 
+variable "pub_cidr"{
+    type = list
+    default = []
+}
+
 variable "azs" {
     type = list
     default = []
