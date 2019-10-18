@@ -1,7 +1,11 @@
-resource "aws_vpc" "this" {
-  cidr_block = var.cidr
+resource "aws_vpc" "vpc" {
+    cidr_block = var.cidr
 }
 
-module "subnet" {
-  source = "./modules/subnet/"  
+module "mysubnet" {
+  source = "./modules/subnets/"
+  
+  private_subnets = var.priv_cidr
+  azs = var.azs
+  vpc-id = aws_vpc.vpc.id
 }
