@@ -3,21 +3,28 @@ provider "aws" {
     version = "~> v2.0"
 }
 
-terraform {
-  backend "s3"{
-    bucket = "terraform-devops-bootcamp"
-    key = "terraform.tfstate"
-    region = "us-east-1"
-  }
-}
+# terraform {
+#   backend "s3"{
+#     bucket = "terraform-devops-bootcamp"
+#     key = "terraform.tfstate"
+#     region = "us-east-1"
+#   }
+# }
 
 module "myvpc" {
   source = "./modules/vpc/"
 
   cidr = "10.0.0.0/16"
 
-  priv_cidr = ["10.0.1.0/24","10.0.2.0/24"]
-  pub_cidr = ["10.0.3.0/24","10.0.4.0/24"]
-  azs = ["us-east-1a","us-east-1b"]
+  priv_cidr = var.priv_cidr
+  pub_cidr = var.pub_cidr
+  azs = var.azs
 
+}
+
+module "myec2" {
+  source = "./modules/ec2/"
+
+  vpc-id = module.myvpc.vpc_id
+  subnet-id = module.myvpc.subnet_id
 }
