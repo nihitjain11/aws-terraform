@@ -1,0 +1,41 @@
+[
+    {
+        "name": "db",
+        "image": "mysql:5.7",
+        "cpu": 128,
+        "memoryReservation": 128,
+        "essential": true,
+        "environment" : [
+            { "name" : "MYSQL_DATABASE", "value" : "wordpress" },
+            { "name" : "MYSQL_PASSWORD", "value" : "wordpress" },
+            { "name" : "MYSQL_USER", "value" : "wordpress" },
+            { "name" : "MYSQL_ROOT_PASSWORD", "value" : "somewordpress" }
+        ],
+        "mountPoints" : [
+            {
+                "sourceVolume" : "mysql",
+                "containerPath" : "/var/lib/mysql"
+            }
+        ]
+    },
+    {
+        "name": "wp",
+        "image": "wordpress:latest",
+        "cpu": 128,
+        "memoryReservation": 128,
+        "essential": true,
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 0
+            }
+        ],
+        "environment" : [
+            { "name" : "WORDPRESS_HOST", "value" : "db:3306" },
+            { "name" : "WORDPRESS_NAME", "value" : "wordpress" },
+            { "name" : "WORDPRESS_PASSWORD", "value" : "wordpress" },
+            { "name" : "WORDPRESS_USER", "value" : "wordpress" }
+        ],
+        "links" : ["db"]
+    }
+]

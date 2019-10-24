@@ -4,4 +4,7 @@ variable "lt-id" {
 variable "subnet-id" {
   type = list
 }
+variable "lb_tg_arn" {
+  type = string
+}
 

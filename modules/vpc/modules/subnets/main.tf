@@ -9,6 +9,7 @@ resource "aws_subnet" "public" {
   vpc_id            = var.vpc-id
   cidr_block        = element(var.public_subnets,count.index)
   availability_zone = element(var.azs,count.index)
+  map_public_ip_on_launch = true
 }
 module "mygateways" {
   source = "./../gateways/"
