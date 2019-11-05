@@ -6,7 +6,7 @@ resource "aws_launch_template" "lt" {
 
   vpc_security_group_ids = [var.sg-id]
   key_name = "nihitjain11"
-  user_data = filebase64("${path.module}/user_data.sh")
+  user_data = filebase64("${path.module}/ecs.sh")
   iam_instance_profile {
     name = var.iam_inst_prof
   }

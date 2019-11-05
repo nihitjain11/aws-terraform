@@ -10,6 +10,5 @@ module "myservice" {
 }
 
 module "mytaskdef" {
-  source = "./modules/taskdef/"
-  
+  source = "./modules/taskdef/" 
 }

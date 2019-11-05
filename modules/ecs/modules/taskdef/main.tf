@@ -1,15 +1,15 @@
 resource "aws_ecs_task_definition" "task" {
-  family                    = "webserver" #"WP-MySQL"
+  family                    = "WP-MySQL" #"webserver"
   network_mode              = "bridge"
   requires_compatibilities  = ["EC2"]
 
-  cpu = 256
-  memory = 256
+  cpu = 512
+  memory = 512
 
-  # volume {
-  #   name      = "mysql"
-  #   host_path = "/data"
-  # }
+  volume {
+    name      = "mysql"
+    host_path = "/data"
+  }
 
-  container_definitions = "${file("${path.module}/nginx.json")}"#"${file("${path.module}/WP-MySQL.json")}"
+  container_definitions = "${file("${path.module}/WP-MySQL.json")}" #"${file("${path.module}/nginx.json")}"
 }
