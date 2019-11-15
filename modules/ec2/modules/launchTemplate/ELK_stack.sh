@@ -6,18 +6,6 @@ sudo apt-get update
 
 sudo apt-get install openjdk-8-jdk nginx -y
 
-echo "
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-  	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		proxy_pass http://localhost:5601;
-	}
-}" > /etc/nginx/sites-enabled/default
-
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.7.1.deb
 sudo dpkg -i elasticsearch-6.7.1.deb
 
@@ -33,10 +21,29 @@ sudo dpkg -i kibana-6.7.1-amd64.deb
 sudo sed -i '2s/#//' /etc/kibana/kibana.yml 
 sudo sed -i '7s/#//' /etc/kibana/kibana.yml 
 
+wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-6.7.1-amd64.deb
+sudo dpkg -i filebeat-6.7.1-amd64.deb
+
 sudo service elasticsearch start
 sudo service logstash start
 sudo service kibana start
+sudo service filebeat start
+
+echo "
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+ 	# root /var/www/html;
+	# index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		proxy_pass http://localhost:5601;
+	}
+}" > /etc/nginx/sites-enabled/default
+
+sudo service nginx restart
 
 # sudo service elasticsearch status
 # sudo service logstash status
 # sudo service kibana status
+# tail -f /var/log/user-data.log 

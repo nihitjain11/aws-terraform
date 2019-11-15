@@ -16,7 +16,7 @@ resource "aws_lb_target_group" "tg" {
 ################
 
 resource "aws_lb" "lb" {
-  name = "tf-lb-nihit"
+  name = "lb-nihit"
   load_balancer_type = "application"
   security_groups    = [var.sg-id]
   subnets            = var.subnet-id
